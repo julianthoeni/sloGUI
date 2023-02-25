@@ -73,12 +73,12 @@ async function dbDeleteSLO(sloid) {
 	}
 }
 
-async function dbDeleteRule(sloid) {
+async function dbDeleteRule(sloid,functiontype) {
 	let conn;
 	let res;
 	try {
 		conn = await pool.getConnection();
-		res = await conn.query("DELETE FROM rule WHERE sloid = '" + sloid + "'");
+		res = await conn.query("DELETE FROM rule WHERE sloid = '" + sloid + "' AND functiontype = '" + functiontype + "'");
 		console.log(res)
 	} catch (err) {
 		throw err;
@@ -190,8 +190,8 @@ app.get("/getRule", async (req, res) => {
 
 app.post("/deleteRule", (req, res) => {
 	let data = req.body;
-	console.log("Deleting Rule " + req.body.sloid);
-	dbDeleteRule(req.body.sloid);
+	console.log("Deleting Rule " + req.body.sloid + req.body.functiontype);
+	dbDeleteRule(req.body.sloid,req.body.functiontype);
 	res.send("Data Received: " + JSON.stringify(data));
 });
 

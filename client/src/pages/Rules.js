@@ -41,7 +41,7 @@ function App() {
                     <button
                       type="button"
                       class="btn btn-danger"
-                      onClick={() => DeleteRule(name.sloid)}
+                      onClick={() => DeleteRule(name.sloid,name.functiontype)}
                     >
                       Delete
                     </button>
@@ -116,7 +116,7 @@ function App() {
   );
 }
 
-async function DeleteRule(sloid, a) {
+async function DeleteRule(sloid, ft) {
   const yn = await confirm(`Are you sure you want to delete rule ${sloid}`);
   if (yn) {
     await fetch("/deleteRule", {
@@ -128,6 +128,7 @@ async function DeleteRule(sloid, a) {
       body: JSON.stringify({
         action: "deleteRule",
         sloid: sloid,
+        functiontype: ft
       }),
     });
     window.location.reload();
