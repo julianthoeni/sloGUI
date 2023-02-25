@@ -229,6 +229,7 @@ app.post("/addPeriod", (req, res) => {
 	res.send("Data Received: " + JSON.stringify(data));
 });
 
-app.listen(5000, () => {
-	console.log("Server startet on port 5000");
+
+app.listen(config.client_port, () => {
+	console.log("Server startet on port " + config.client_port);
 });
